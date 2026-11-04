@@ -351,21 +351,21 @@ Para preparar las naves de prueba de T-07, hace falta cambiar a mano el contador
 Spec: [docs/specs/02-interfaz-flota.md](../specs/02-interfaz-flota.md). Sistema de diseño: [DESIGN.md](../../DESIGN.md). Ningún ticket de este bloque toca `src/dominio/`, `src/services/` ni `supabase/`.
 
 #### T-08 · Tokens, base y fuentes
-**Estado:** pendiente.
+**Estado:** pendiente: el código está hecho, pero falta verificar en el navegador (`docs/VERIFICACION-UI.md`).
 
 - **Historia:** HU-1.2 (base visual de toda la pantalla).
 - **Tipo:** Interfaz/Estilos.
 - **Descripción:** crear `src/styles/tokens.css` con todos los tokens de DESIGN.md §4 y `src/styles/base.css` con el fondo, la tipografía, los títulos y el foco visible. Cargar IBM Plex desde Google Fonts en `index.html` e importar los estilos desde `src/main.tsx`.
 - **Definition of Done:**
-  - [ ] `tokens.css` tiene los tokens de color, tipografía, espaciado, radios, borde y movimiento de DESIGN.md §4.
-  - [ ] Ningún archivo fuera de `tokens.css` tiene un color hexadecimal (D-01).
+  - [x] `tokens.css` tiene los tokens de color, tipografía, espaciado, radios, borde y movimiento de DESIGN.md §4.
+  - [x] Ningún archivo fuera de `tokens.css` tiene un color hexadecimal (D-01).
   - [ ] La página usa el fondo, el texto y las fuentes de DESIGN.md; con `prefers-reduced-motion` no hay transiciones.
   - [ ] Los textos de la app no cambian (D-10).
-  - [ ] `npm test` y `npm run build` pasan.
+  - [x] `npm test` y `npm run build` pasan.
 - **Dependencias:** spec 02.
 
 #### T-09 · Tarjeta de nave
-**Estado:** pendiente.
+**Estado:** pendiente: el código está hecho, pero falta verificar en el navegador (`docs/VERIFICACION-UI.md`).
 
 - **Historia:** HU-1.2 (CA1 a CA8).
 - **Tipo:** Interfaz.
@@ -373,14 +373,14 @@ Spec: [docs/specs/02-interfaz-flota.md](../specs/02-interfaz-flota.md). Sistema 
 - **Definition of Done:**
   - [ ] Cada nave es un `li` con la tarjeta en el orden fijo de DESIGN.md §6.7 (D-03).
   - [ ] Una nave no apta muestra sus motivos con `MENSAJES_MOTIVO` (D-04).
-  - [ ] La barra y el contador leen `COMBUSTIBLE_MINIMO` y `MAX_MISIONES_SIN_REVISION` de `src/dominio/aptitud.ts`; ningún componente escribe 25 ni 3 a mano (D-05, D-06).
-  - [ ] La barra tiene `role="meter"` con sus atributos `aria-*`.
-  - [ ] No hay estilos en línea salvo el ancho del relleno de la barra (D-02).
-  - [ ] `npm test` y `npm run build` pasan.
+  - [x] La barra y el contador leen `COMBUSTIBLE_MINIMO` y `MAX_MISIONES_SIN_REVISION` de `src/dominio/aptitud.ts`; ningún componente escribe 25 ni 3 a mano (D-05, D-06).
+  - [x] La barra tiene `role="meter"` con sus atributos `aria-*`.
+  - [x] No hay estilos en línea salvo el ancho del relleno de la barra (D-02).
+  - [x] `npm test` y `npm run build` pasan.
 - **Dependencias:** T-08.
 
 #### T-10 · Formularios y avisos
-**Estado:** pendiente.
+**Estado:** pendiente: el código está hecho, pero falta verificar en el navegador (`docs/VERIFICACION-UI.md`).
 
 - **Historia:** HU-1.2 (CA11) y los formularios de HU-1.1 y HU-1.3.
 - **Tipo:** Interfaz.
@@ -390,20 +390,20 @@ Spec: [docs/specs/02-interfaz-flota.md](../specs/02-interfaz-flota.md). Sistema 
   - [ ] Todo control muestra el foco con el acento al recorrerlo con Tab (D-07).
   - [ ] Los avisos de éxito usan `role="status"` y los de error `role="alert"`, debajo del botón que los produjo.
   - [ ] Los mensajes son los de la spec 01, carácter por carácter (D-10).
-  - [ ] `npm test` y `npm run build` pasan.
+  - [x] `npm test` y `npm run build` pasan.
 - **Dependencias:** T-08.
 
 #### T-11 · Layout del tablero
-**Estado:** pendiente.
+**Estado:** pendiente: el código está hecho, pero falta verificar en el navegador (`docs/VERIFICACION-UI.md`).
 
 - **Historia:** HU-1.2 (CA10).
 - **Tipo:** Interfaz.
 - **Descripción:** armar en `App.tsx` el encabezado y el tablero de DESIGN.md §5: dos columnas desde 900 px (formularios a la izquierda, flota a la derecha) y una sola columna por debajo.
 - **Definition of Done:**
   - [ ] A 1280 px hay dos columnas; a 390 px, una, sin scroll horizontal (D-09).
-  - [ ] Cada formulario vive en un «Panel» con su título.
+  - [x] Cada formulario vive en un «Panel» con su título.
   - [ ] El orden de lectura y de Tab es: encabezado, registrar nave, asignar misión, flota.
-  - [ ] `npm test` y `npm run build` pasan.
+  - [x] `npm test` y `npm run build` pasan.
 - **Dependencias:** T-08, T-09 y T-10.
 
 #### Orden sugerido
