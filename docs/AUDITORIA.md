@@ -8,6 +8,7 @@
 - **`npm test`:** 3 archivos y 44 tests, todos en verde.
 - **`npm run build`:** compila sin errores (`dist/assets/index-*.js`, 448 kB).
 - **Corrección del límite:** R1 pasó a "menos de 3 misiones". Los criterios HU-1.3-CA2, CA3, CA4 y CA8 se reescribieron y sus tests se actualizaron. La observación 2 queda resuelta.
+- **Spec 01 en el navegador:** Justin hizo V-01 a V-16 contra Supabase, sin fallos. Con eso pasan a "cumple" HU-1.1-CA1, CA2 y CA9, y HU-1.3-CA1. Siguen sin verificar HU-1.3-CA2 (V-17) y HU-1.3-CA7 (V-21).
 - **Spec 02:** 21 criterios (HU-1.2-CA1 a CA11 y D-01 a D-10).
   - **Cumplen:** 2 (D-01 y D-02, por comando).
   - **No cumplen:** 0.
@@ -26,16 +27,16 @@
 
 | Criterio | Cómo se verificó | Resultado | Evidencia |
 |---|---|---|---|
-| HU-1.1-CA1 | Navegador (V-03) | Sin verificar | V-03 sin resultado anotado. |
-| HU-1.1-CA2 | Test + navegador (V-01) | Sin verificar | El test pasa: `nave.test.ts` › rechaza la clase "crucero" y "Carguera". Falta V-01, el selector en pantalla. |
+| HU-1.1-CA1 | Navegador (V-03) | Cumple | V-03 del 2026-11-04, y la fila de Aurora en Supabase. |
+| HU-1.1-CA2 | Test + navegador (V-01) | Cumple | El test pasa: `nave.test.ts` › rechaza la clase "crucero" y "Carguera". V-01 del 2026-11-04: el selector solo ofrece las tres clases. |
 | HU-1.1-CA3 | Test | Cumple | `aptitud.test.ts` › acepta una nave con exactamente un 25 % de combustible. |
 | HU-1.1-CA4 | Test | Cumple | `aptitud.test.ts` › rechaza una nave con un 10 % de combustible. |
 | HU-1.1-CA5 | Test | Cumple | `nave.test.ts` › rechaza el nombre "" y "   ". |
 | HU-1.1-CA6 | Test | Cumple | `nave.test.ts` › rechaza la clase "". |
 | HU-1.1-CA7 | Test | Cumple | `nave.test.ts` › rechaza una nave sin combustible. |
 | HU-1.1-CA8 | Test | Cumple | `nave.test.ts` › rechaza el combustible -1, 101, 24.5 y NaN; acepta 0, 25 y 100. |
-| HU-1.1-CA9 | Navegador (V-06) | Sin verificar | V-06 sin resultado anotado. En el código, `navesService.crear` traduce el error `23505` al aviso, y la migración declara `nombre ... unique`. |
-| HU-1.3-CA1 | Navegador (V-10) | Sin verificar | V-10 sin resultado anotado. |
+| HU-1.1-CA9 | Navegador (V-06) | Cumple | V-06 del 2026-11-04: una sola Aurora en Supabase. En el código, `navesService.crear` traduce el error `23505` al aviso, y la migración declara `nombre ... unique`. |
+| HU-1.3-CA1 | Navegador (V-10) | Cumple | V-10 del 2026-11-04 (con despegue hoy en vez de mañana). |
 | HU-1.3-CA2 | Navegador (V-17) | Sin verificar | Criterio corregido el 2026-11-04: con 3 misiones la nave deja de ser apta. V-17 sin resultado anotado. |
 | HU-1.3-CA3 | Test | Cumple | Criterio corregido: el límite exacto aceptado es 2. `aptitud.test.ts` › acepta una nave con 2 misiones desde la última revisión. |
 | HU-1.3-CA4 | Test | Cumple | Criterio corregido: se rechaza con 3. `aptitud.test.ts` › rechaza una nave con exactamente 3 misiones desde la última revisión. El mensaje es «Necesita revisión: ya tiene 3 misiones desde la última.» (`MENSAJES_MOTIVO`). |
@@ -67,6 +68,7 @@ Los tests verifican las funciones del dominio (`validarNave`, `validarMision` y 
 ## Observaciones
 1. **Verificación en el navegador sin anotar.** Para cerrar los 6 criterios pendientes, hay que anotar los resultados en `docs/VERIFICACION.md` y repetir esta auditoría.
 2. ~~**La cuarta misión se acepta.**~~ **Resuelta el 2026-11-04.** El cliente confirmó que una nave admite como máximo 3 misiones entre revisiones. Se corrigió de arriba hacia abajo: PRD (R1), épicas, criterios de HU-1.3, spec 01, tests (fallaron 4 antes del cambio de código) y `src/dominio/aptitud.ts` (`>=` en lugar de `>`). Falta la comprobación en el navegador (V-17 a V-19).
+4. **Conteo de tests por archivo.** La spec 01 decía 17 tests en `nave.test.ts` y 12 en `aptitud.test.ts`; Vitest cuenta 18 y 11 (el total, 44, sí era correcto). Se corrigió la spec.
 3. **El bundle contiene la URL y la clave pública.** Es lo esperado en una app de frontend: esa clave es pública por diseño. La protección real depende de las políticas RLS (ver Riesgos).
 
 ## Spec 02 · Interfaz de la flota
