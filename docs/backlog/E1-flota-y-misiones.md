@@ -64,10 +64,62 @@ Como jefe de hangar, quiero registrar una nave nueva del hangar, para que quede 
 - ¿Se puede registrar una nave que entra directamente en dique seco, o siempre se registra fuera de él?
 
 ### HU-1.2 · Consultar la flota
-**Estado:** por refinar.
+**Estado:** refinada.
 
 Como jefe de hangar, quiero ver la lista de todas las naves registradas, para saber con qué naves cuenta el hangar.
 - **Alcance PRD:** A4 (parcial: la lista de naves). Mostrar si cada nave está apta y por qué es parte de E2.
+- **Reglas del PRD que aplican:** R1 (aptitud), solo para mostrarla. El cálculo ya existe (T-02); esta historia no lo cambia.
+- **Spec:** [docs/specs/02-interfaz-flota.md](../specs/02-interfaz-flota.md).
+
+#### Criterios de aceptación
+1. **Toda la flota a la vista**
+   - DADO que hay naves registradas,
+   - CUANDO abro la app,
+   - ENTONCES veo una ficha por nave con su nombre, su clase, su combustible, las misiones desde la última revisión y si está operativa o en reparación.
+2. **Aptitud de un vistazo (R1)**
+   - DADO que hay naves aptas y no aptas en la flota,
+   - CUANDO miro la flota,
+   - ENTONCES distingo de un vistazo qué naves pueden despegar y cuáles no, porque la aptitud aparece siempre en el mismo lugar de cada ficha y dicha con palabras («Apta» o «No apta»).
+3. **Por qué no puede despegar (R1)**
+   - DADO una nave no apta,
+   - CUANDO miro su ficha,
+   - ENTONCES veo todos los motivos por los que no puede despegar, no solo uno.
+4. **Combustible frente al mínimo**
+   - DADO una nave cualquiera,
+   - CUANDO miro su ficha,
+   - ENTONCES veo cuánto combustible tiene y si está por debajo del mínimo para despegar, sin hacer cuentas.
+5. **Misiones frente al máximo**
+   - DADO una nave con misiones desde su última revisión,
+   - CUANDO miro su ficha,
+   - ENTONCES veo cuántas lleva y cuántas admite antes de necesitar revisión (por ejemplo, «2 de 3»).
+6. **Nave en reparación**
+   - DADO una nave en dique seco,
+   - CUANDO miro la flota,
+   - ENTONCES la distingo de las operativas sin abrir nada, y su estado está dicho con palabras («En reparación»).
+7. **Flota vacía**
+   - DADO que no hay naves registradas,
+   - CUANDO abro la app,
+   - ENTONCES veo «Todavía no hay naves registradas.».
+8. **La flota no carga**
+   - DADO que la app no puede leer la flota,
+   - CUANDO abro la app,
+   - ENTONCES veo «No se pudo cargar la flota.».
+9. **La flota al día**
+   - DADO que estoy en la app,
+   - CUANDO registro una nave o le asigno una misión,
+   - ENTONCES la flota se actualiza sin recargar la página.
+10. **Pantalla angosta**
+    - DADO que abro la app en una pantalla de celular,
+    - CUANDO recorro la flota y los formularios,
+    - ENTONCES veo la misma información, en una sola columna y sin desplazarme de lado.
+11. **Solo con teclado**
+    - DADO que no uso el mouse,
+    - CUANDO recorro la app con Tab,
+    - ENTONCES puedo registrar naves y asignar misiones, y siempre veo en qué control estoy.
+
+#### Casos borde sin cubrir
+- Flota grande (decenas de naves): no hay búsqueda, filtro ni orden distinto al alfabético. Queda para E2 («ver las naves no aptas»).
+- Nombres de nave muy largos: la ficha los corta en varias líneas; no se decidió un máximo de caracteres.
 
 ### HU-1.3 · Asignar una misión a una nave apta
 **Estado:** refinada.
@@ -294,3 +346,65 @@ Historias del sprint: HU-1.1 y HU-1.3. Según AGENTS.md, ninguna funcionalidad s
 7. **T-07:** verificar HU-1.3.
 
 Para preparar las naves de prueba de T-07, hace falta cambiar a mano el contador de misiones y el dique seco, porque las pantallas que hacen eso son de E2.
+
+### HU-1.2 · Consultar la flota (interfaz)
+Spec: [docs/specs/02-interfaz-flota.md](../specs/02-interfaz-flota.md). Sistema de diseño: [DESIGN.md](../../DESIGN.md). Ningún ticket de este bloque toca `src/dominio/`, `src/services/` ni `supabase/`.
+
+#### T-08 · Tokens, base y fuentes
+**Estado:** pendiente.
+
+- **Historia:** HU-1.2 (base visual de toda la pantalla).
+- **Tipo:** Interfaz/Estilos.
+- **Descripción:** crear `src/styles/tokens.css` con todos los tokens de DESIGN.md §4 y `src/styles/base.css` con el fondo, la tipografía, los títulos y el foco visible. Cargar IBM Plex desde Google Fonts en `index.html` e importar los estilos desde `src/main.tsx`.
+- **Definition of Done:**
+  - [ ] `tokens.css` tiene los tokens de color, tipografía, espaciado, radios, borde y movimiento de DESIGN.md §4.
+  - [ ] Ningún archivo fuera de `tokens.css` tiene un color hexadecimal (D-01).
+  - [ ] La página usa el fondo, el texto y las fuentes de DESIGN.md; con `prefers-reduced-motion` no hay transiciones.
+  - [ ] Los textos de la app no cambian (D-10).
+  - [ ] `npm test` y `npm run build` pasan.
+- **Dependencias:** spec 02.
+
+#### T-09 · Tarjeta de nave
+**Estado:** pendiente.
+
+- **Historia:** HU-1.2 (CA1 a CA8).
+- **Tipo:** Interfaz.
+- **Descripción:** cambiar la tabla de `ListaNaves` por una lista de «Tarjeta de nave», con «Insignia de estado», «Barra de combustible» y «Contador de misiones», y dar estilo a los estados «Cargando», «Vacío» y «Error» de la flota.
+- **Definition of Done:**
+  - [ ] Cada nave es un `li` con la tarjeta en el orden fijo de DESIGN.md §6.7 (D-03).
+  - [ ] Una nave no apta muestra sus motivos con `MENSAJES_MOTIVO` (D-04).
+  - [ ] La barra y el contador leen `COMBUSTIBLE_MINIMO` y `MAX_MISIONES_SIN_REVISION` de `src/dominio/aptitud.ts`; ningún componente escribe 25 ni 3 a mano (D-05, D-06).
+  - [ ] La barra tiene `role="meter"` con sus atributos `aria-*`.
+  - [ ] No hay estilos en línea salvo el ancho del relleno de la barra (D-02).
+  - [ ] `npm test` y `npm run build` pasan.
+- **Dependencias:** T-08.
+
+#### T-10 · Formularios y avisos
+**Estado:** pendiente.
+
+- **Historia:** HU-1.2 (CA11) y los formularios de HU-1.1 y HU-1.3.
+- **Tipo:** Interfaz.
+- **Descripción:** aplicar «Campo de formulario», «Botón» y «Avisos» a `FormularioNave` y `FormularioMision`, incluido el estado de error de cada campo y el rechazo por nave no apta.
+- **Definition of Done:**
+  - [ ] Un campo con error tiene borde de error, mensaje debajo enlazado con `aria-describedby` y `aria-invalid="true"` (D-08).
+  - [ ] Todo control muestra el foco con el acento al recorrerlo con Tab (D-07).
+  - [ ] Los avisos de éxito usan `role="status"` y los de error `role="alert"`, debajo del botón que los produjo.
+  - [ ] Los mensajes son los de la spec 01, carácter por carácter (D-10).
+  - [ ] `npm test` y `npm run build` pasan.
+- **Dependencias:** T-08.
+
+#### T-11 · Layout del tablero
+**Estado:** pendiente.
+
+- **Historia:** HU-1.2 (CA10).
+- **Tipo:** Interfaz.
+- **Descripción:** armar en `App.tsx` el encabezado y el tablero de DESIGN.md §5: dos columnas desde 900 px (formularios a la izquierda, flota a la derecha) y una sola columna por debajo.
+- **Definition of Done:**
+  - [ ] A 1280 px hay dos columnas; a 390 px, una, sin scroll horizontal (D-09).
+  - [ ] Cada formulario vive en un «Panel» con su título.
+  - [ ] El orden de lectura y de Tab es: encabezado, registrar nave, asignar misión, flota.
+  - [ ] `npm test` y `npm run build` pasan.
+- **Dependencias:** T-08, T-09 y T-10.
+
+#### Orden sugerido
+T-08 primero. Después T-09 y T-10, que no dependen entre sí. T-11 al final, porque acomoda lo que dejan los otros tres.
