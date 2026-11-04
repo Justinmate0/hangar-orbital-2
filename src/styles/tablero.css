@@ -1,0 +1,50 @@
+/* Encabezado, Panel y layout del tablero (DESIGN.md §5 y §6.1) */
+
+.contenedor {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--espacio-8) var(--espacio-4) var(--espacio-12);
+  display: grid;
+  gap: var(--espacio-8);
+}
+
+.encabezado {
+  display: grid;
+  gap: var(--espacio-1);
+}
+
+/* Pantalla angosta (< 900 px): una sola columna, en el mismo orden */
+.tablero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--espacio-6);
+  align-items: start;
+}
+
+.columna-formularios {
+  display: grid;
+  gap: var(--espacio-6);
+}
+
+/* Panel */
+.panel {
+  display: grid;
+  gap: var(--espacio-4);
+  padding: var(--espacio-6);
+  background: var(--color-superficie);
+  border: var(--borde);
+  border-radius: var(--radio-md);
+}
+
+.seccion-flota {
+  display: grid;
+  gap: var(--espacio-4);
+  min-width: 0;
+}
+
+/* Tablero (≥ 900 px): formularios a la izquierda (360 px) y flota a la derecha */
+@media (min-width: 900px) {
+  .tablero {
+    grid-template-columns: 360px minmax(0, 1fr);
+  }
+}
