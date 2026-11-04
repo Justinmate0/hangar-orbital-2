@@ -68,8 +68,8 @@ Los tests verifican las funciones del dominio (`validarNave`, `validarMision` y 
 ## Observaciones
 1. **Verificación en el navegador sin anotar.** Para cerrar los 6 criterios pendientes, hay que anotar los resultados en `docs/VERIFICACION.md` y repetir esta auditoría.
 2. ~~**La cuarta misión se acepta.**~~ **Resuelta el 2026-11-04.** El cliente confirmó que una nave admite como máximo 3 misiones entre revisiones. Se corrigió de arriba hacia abajo: PRD (R1), épicas, criterios de HU-1.3, spec 01, tests (fallaron 4 antes del cambio de código) y `src/dominio/aptitud.ts` (`>=` en lugar de `>`). Falta la comprobación en el navegador (V-17 a V-19).
-4. **Conteo de tests por archivo.** La spec 01 decía 17 tests en `nave.test.ts` y 12 en `aptitud.test.ts`; Vitest cuenta 18 y 11 (el total, 44, sí era correcto). Se corrigió la spec.
 3. **El bundle contiene la URL y la clave pública.** Es lo esperado en una app de frontend: esa clave es pública por diseño. La protección real depende de las políticas RLS (ver Riesgos).
+4. **Conteo de tests por archivo.** La spec 01 decía 17 tests en `nave.test.ts` y 12 en `aptitud.test.ts`; Vitest cuenta 18 y 11 (el total, 44, sí era correcto). Se corrigió la spec.
 
 ## Spec 02 · Interfaz de la flota
 
