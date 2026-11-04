@@ -1,0 +1,111 @@
+/* Campo de formulario, Botón y Avisos (DESIGN.md §6.2, §6.3 y §6.8) */
+
+.formulario {
+  display: grid;
+  gap: var(--espacio-4);
+}
+
+/* Campo de formulario */
+.campo {
+  display: grid;
+  gap: var(--espacio-1);
+}
+
+.campo label {
+  font-size: var(--texto-sm);
+  font-weight: 600;
+}
+
+.campo-control {
+  width: 100%;
+  min-height: 40px;
+  padding: 0 var(--espacio-3);
+  background: var(--color-superficie-alta);
+  color: var(--color-texto);
+  border: 1px solid var(--color-borde-control);
+  border-radius: var(--radio-sm);
+  font-family: var(--fuente-texto);
+  font-size: var(--texto-base);
+  line-height: 1.5;
+  transition: border-color var(--duracion-corta) ease-out;
+}
+
+.campo-control:focus {
+  border-color: var(--color-acento);
+}
+
+.campo-control:focus-visible {
+  outline: 2px solid var(--color-acento);
+  outline-offset: 2px;
+}
+
+.campo--error .campo-control {
+  border-color: var(--color-no-apta);
+}
+
+.campo-error {
+  font-size: var(--texto-sm);
+  color: var(--color-no-apta);
+}
+
+/* Botón */
+.boton {
+  justify-self: start;
+  min-height: 40px;
+  padding: 0 var(--espacio-4);
+  border-radius: var(--radio-sm);
+  font-family: var(--fuente-texto);
+  font-size: var(--texto-base);
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color var(--duracion-corta) ease-out,
+    border-color var(--duracion-corta) ease-out;
+}
+
+.boton--primario {
+  background: var(--color-acento);
+  color: var(--color-sobre-acento);
+  border: 1px solid var(--color-acento);
+}
+
+.boton--secundario {
+  background: transparent;
+  color: var(--color-texto);
+  border: 1px solid var(--color-borde-control);
+}
+
+.boton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.boton:focus-visible {
+  outline: 2px solid var(--color-acento);
+  outline-offset: 2px;
+}
+
+/* Avisos */
+.aviso {
+  display: grid;
+  gap: var(--espacio-2);
+  padding: var(--espacio-3) var(--espacio-4);
+  border-radius: var(--radio-sm);
+  color: var(--color-texto);
+  font-size: var(--texto-sm);
+}
+
+.aviso--exito {
+  background: var(--color-apta-fondo);
+  border: 1px solid var(--color-apta);
+}
+
+.aviso--error {
+  background: var(--color-no-apta-fondo);
+  border: 1px solid var(--color-no-apta);
+}
+
+.aviso-lista {
+  padding-left: var(--espacio-4);
+}

@@ -4,6 +4,7 @@ import App from './App';
 import './styles/tokens.css';
 import './styles/base.css';
 import './styles/tarjeta-nave.css';
+import './styles/formularios.css';
 
 const raiz = document.getElementById('root');
 if (!raiz) throw new Error('No se encontró el elemento #root');
