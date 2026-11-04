@@ -1,0 +1,174 @@
+/* Tarjeta de nave, Insignia, Barra de combustible, Contador y Estados de la flota (DESIGN.md §6.4 a §6.7 y §6.9) */
+
+.flota {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--espacio-4);
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+.tarjeta-nave {
+  height: 100%;
+  display: grid;
+  gap: var(--espacio-3);
+  align-content: start;
+  padding: var(--espacio-4);
+  background: var(--color-superficie);
+  border: var(--borde);
+  border-radius: var(--radio-md);
+}
+
+.tarjeta-cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--espacio-3);
+}
+
+.tarjeta-cabecera h3 {
+  overflow-wrap: anywhere;
+}
+
+.clase {
+  font-family: var(--fuente-cifras);
+  font-size: var(--texto-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-texto-suave);
+}
+
+/* Insignia de estado */
+.insignia {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 var(--espacio-2);
+  border-radius: var(--radio-sm);
+  font-family: var(--fuente-titulo);
+  font-size: var(--texto-xs);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.insignia--apta {
+  color: var(--color-apta);
+  background: var(--color-apta-fondo);
+}
+
+.insignia--no-apta {
+  color: var(--color-no-apta);
+  background: var(--color-no-apta-fondo);
+}
+
+.insignia--reparacion {
+  color: var(--color-reparacion);
+  background: var(--color-reparacion-fondo);
+}
+
+/* Barra de combustible */
+.combustible {
+  display: grid;
+  gap: var(--espacio-1);
+}
+
+.combustible-fila {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 3.5rem;
+  gap: var(--espacio-3);
+  align-items: center;
+}
+
+.pista {
+  position: relative;
+  height: 8px;
+  background: var(--color-superficie-alta);
+  border-radius: 2px;
+}
+
+.relleno {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 2px;
+  background: var(--color-apta);
+}
+
+.relleno--bajo {
+  background: var(--color-no-apta);
+}
+
+.umbral {
+  position: absolute;
+  top: calc(-1 * var(--espacio-1));
+  left: 0;
+  width: 100%;
+  height: calc(100% + 2 * var(--espacio-1));
+  overflow: visible;
+  pointer-events: none;
+}
+
+.umbral line {
+  stroke: var(--color-texto-suave);
+  stroke-width: 2;
+}
+
+.combustible-valor {
+  text-align: right;
+}
+
+/* Contador de misiones */
+.contador {
+  display: grid;
+  gap: var(--espacio-1);
+}
+
+.contador-valor {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-2);
+}
+
+.marcas {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-1);
+}
+
+.marca {
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--color-texto-suave);
+  border-radius: 1px;
+}
+
+.marca--ocupada {
+  background: var(--color-texto);
+  border-color: var(--color-texto);
+}
+
+/* Estado y motivos */
+.tarjeta-estado {
+  padding-top: var(--espacio-3);
+  border-top: var(--borde);
+}
+
+.motivos {
+  display: grid;
+  gap: var(--espacio-1);
+  padding-left: var(--espacio-4);
+  font-size: var(--texto-sm);
+  color: var(--color-texto-suave);
+}
+
+/* Estados de la flota */
+.flota-vacia {
+  padding: var(--espacio-6);
+  border: 1px dashed var(--color-borde);
+  border-radius: var(--radio-md);
+  text-align: center;
+  color: var(--color-texto-suave);
+  font-size: var(--texto-sm);
+}

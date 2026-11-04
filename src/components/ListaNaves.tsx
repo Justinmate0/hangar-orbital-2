@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { MENSAJES_MOTIVO, puedeRecibirMision } from '../dominio/aptitud';
+import { puedeRecibirMision } from '../dominio/aptitud';
 import { misionesService } from '../services/misionesService';
 import { navesService } from '../services/navesService';
 import type { Aptitud } from '../types/mision';
 import type { Nave } from '../types/nave';
+import TarjetaNave from './TarjetaNave';
 
 interface Props {
   // Cambia cada vez que se registra una nave o se asigna una misión
@@ -47,47 +48,25 @@ export default function ListaNaves({ version }: Props) {
     };
   }, [version]);
 
-  if (error) return <p role="alert">No se pudo cargar la flota.</p>;
-  if (filas === null) return <p>Cargando la flota…</p>;
-  if (filas.length === 0) return <p>Todavía no hay naves registradas.</p>;
+  if (error) {
+    return (
+      <p className="aviso aviso--error" role="alert">
+        No se pudo cargar la flota.
+      </p>
+    );
+  }
+  if (filas === null) return <p className="suave">Cargando la flota…</p>;
+  if (filas.length === 0) {
+    return <p className="flota-vacia">Todavía no hay naves registradas.</p>;
+  }
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Nave</th>
-          <th>Clase</th>
-          <th>Combustible</th>
-          <th>Misiones desde la última revisión</th>
-          <th>Estado</th>
-          <th>Aptitud</th>
-        </tr>
-      </thead>
-      <tbody>
-        {filas.map(({ nave, misiones, aptitud }) => (
-          <tr key={nave.id}>
-            <td>{nave.nombre}</td>
-            <td>{nave.clase}</td>
-            <td>{nave.combustible} %</td>
-            <td>{misiones}</td>
-            <td>{nave.enReparacion ? 'En reparación' : 'Operativa'}</td>
-            <td>
-              {aptitud.puede ? (
-                'Apta'
-              ) : (
-                <>
-                  No apta
-                  <ul>
-                    {aptitud.motivos.map((motivo) => (
-                      <li key={motivo}>{MENSAJES_MOTIVO[motivo]}</li>
-                    ))}
-                  </ul>
-                </>
-              )}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <ul className="flota">
+      {filas.map(({ nave, misiones, aptitud }) => (
+        <li key={nave.id}>
+          <TarjetaNave nave={nave} misiones={misiones} aptitud={aptitud} />
+        </li>
+      ))}
+    </ul>
   );
 }

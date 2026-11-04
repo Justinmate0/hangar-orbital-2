@@ -3,21 +3,21 @@
   color-scheme: dark;
 
   /* Color */
-  --color-fondo: #0E1420;
-  --color-superficie: #161E2E;
-  --color-superficie-alta: #1F2A3F;
-  --color-borde: #2C3A54;
-  --color-borde-control: #6B7C9E;
-  --color-texto: #E8EEF7;
-  --color-texto-suave: #A3B1C8;
-  --color-acento: #6CC4FF;
-  --color-sobre-acento: #0E1420;
-  --color-apta: #46D39A;
-  --color-apta-fondo: #163A2F;
-  --color-no-apta: #FF6B6B;
-  --color-no-apta-fondo: #3D1E26;
-  --color-reparacion: #F2B84B;
-  --color-reparacion-fondo: #3A2E17;
+  --color-fondo: #0e1420;
+  --color-superficie: #161e2e;
+  --color-superficie-alta: #1f2a3f;
+  --color-borde: #2c3a54;
+  --color-borde-control: #6b7c9e;
+  --color-texto: #e8eef7;
+  --color-texto-suave: #a3b1c8;
+  --color-acento: #6cc4ff;
+  --color-sobre-acento: #0e1420;
+  --color-apta: #46d39a;
+  --color-apta-fondo: #163a2f;
+  --color-no-apta: #ff6b6b;
+  --color-no-apta-fondo: #3d1e26;
+  --color-reparacion: #f2b84b;
+  --color-reparacion-fondo: #3a2e17;
 
   /* Tipografía */
   --fuente-titulo: 'IBM Plex Sans Condensed', 'Arial Narrow', sans-serif;
