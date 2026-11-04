@@ -82,6 +82,7 @@ Como jefe de hangar, quiero asignar una misión a una nave, y que la app lo impi
   - La fecha de despegue puede ser hoy, pero no anterior.
   - La duración es un número entero de días, como mínimo 1.
   - Una nave en reparación no recibe misiones.
+  - Una nave admite como máximo 3 misiones entre revisiones: con 3 ya no es apta y no recibe otra hasta su próxima revisión.
 
 #### Criterios de aceptación
 1. **Asignación a una nave apta (R2)**
@@ -91,13 +92,13 @@ Como jefe de hangar, quiero asignar una misión a una nave, y que la app lo impi
 2. **Asignar suma al contador (R3)**
    - DADO una nave apta con 2 misiones asignadas desde la última revisión,
    - CUANDO le asigno una misión válida,
-   - ENTONCES la nave pasa a mostrar 3 misiones desde la última revisión y sigue apta.
+   - ENTONCES la nave pasa a mostrar 3 misiones desde la última revisión y deja de ser apta, con el motivo de que necesita revisión.
 3. **Límite exacto de misiones (R1)**
-   - DADO una nave con 3 misiones asignadas desde la última revisión y el resto de condiciones en regla,
+   - DADO una nave con 2 misiones asignadas desde la última revisión y el resto de condiciones en regla,
    - CUANDO le asigno una misión válida,
    - ENTONCES la app la acepta.
 4. **Demasiadas misiones sin revisión (R1, R2)**
-   - DADO una nave con 4 misiones asignadas desde la última revisión,
+   - DADO una nave con 3 misiones asignadas desde la última revisión,
    - CUANDO intento asignarle una misión,
    - ENTONCES la app no la asigna y me indica que la nave necesita revisión.
 5. **Combustible insuficiente (R1, R2)**
@@ -113,7 +114,7 @@ Como jefe de hangar, quiero asignar una misión a una nave, y que la app lo impi
    - CUANDO intento asignarle una misión,
    - ENTONCES la app no la asigna y me indica que la nave está en reparación.
 8. **Varios motivos a la vez**
-   - DADO una nave con poco combustible y 4 misiones desde la última revisión,
+   - DADO una nave con poco combustible y 3 misiones desde la última revisión,
    - CUANDO intento asignarle una misión,
    - ENTONCES la app no la asigna y me indica los dos motivos, no solo uno.
 9. **Datos obligatorios de la misión**
@@ -209,7 +210,7 @@ Historias del sprint: HU-1.1 y HU-1.3. Según AGENTS.md, ninguna funcionalidad s
 - **Nota:** la aptitud es una regla de E2, pero aquí se adelanta lo mínimo, porque HU-1.1 la muestra y HU-1.3 la usa para bloquear.
 - **Definition of Done:**
   - [x] Hay tests unitarios para cada regla de validación, incluidos los límites (0 %, 100 %, valores fuera de rango, nombre o clase vacíos).
-  - [x] Hay tests de aptitud en los límites (25 % y 24 %; 3 y 4 misiones; dentro y fuera de dique seco) y para varios motivos a la vez.
+  - [x] Hay tests de aptitud en los límites (25 % y 24 %; 2 y 3 misiones; dentro y fuera de dique seco) y para varios motivos a la vez.
   - [x] Ningún tipo usa `any`.
   - [x] `npm test` pasa.
 - **Dependencias:** T-01 y la spec de HU-1.1.
@@ -279,7 +280,7 @@ Historias del sprint: HU-1.1 y HU-1.3. Según AGENTS.md, ninguna funcionalidad s
 - **Descripción:** comprobar los 13 criterios de aceptación de HU-1.3, con tests automáticos donde se pueda y con una prueba manual en pantalla para el resto.
 - **Definition of Done:**
   - [ ] Cada criterio (1–13) tiene un test o una prueba manual anotada con su resultado. *(CA3 a CA6 y CA8 a CA13 tienen test; CA1, CA2 y CA7 no tienen resultado anotado.)*
-  - [ ] La prueba manual incluye una nave en dique seco y una con 4 misiones, preparadas a mano porque esas funciones son de E2.
+  - [ ] La prueba manual incluye una nave en dique seco y una con 3 misiones, preparadas a mano porque esas funciones son de E2.
   - [x] `npm test` y `npm run build` pasan.
 - **Dependencias:** T-06.
 
