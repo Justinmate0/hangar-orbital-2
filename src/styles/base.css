@@ -1,0 +1,76 @@
+/* Base de DESIGN.md: fondo, tipografía, títulos y foco visible. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+body {
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: var(--fuente-texto);
+  font-size: var(--texto-base);
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--fuente-titulo);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: var(--texto-xl);
+}
+
+h2,
+h3 {
+  font-size: var(--texto-lg);
+}
+
+p,
+ul {
+  margin: 0;
+}
+
+/* Cifras alineadas en columna (principio 3) */
+.cifra {
+  font-family: var(--fuente-cifras);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Etiqueta de dato: «COMBUSTIBLE», «MISIONES DESDE LA ÚLTIMA REVISIÓN» */
+.etiqueta {
+  font-family: var(--fuente-titulo);
+  font-size: var(--texto-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-texto-suave);
+}
+
+.suave {
+  color: var(--color-texto-suave);
+}
+
+/* Foco visible en todo elemento interactivo (§7) */
+:focus-visible {
+  outline: 2px solid var(--color-acento);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+}
